@@ -11,7 +11,7 @@
         .container {
             display: flex;
             justify-content: space-between;
-            height: 93vh;
+            height: 88vh;
         }
 
         .left-div, .center-div, .right-div {
@@ -76,6 +76,7 @@
         }
 
         .banner {
+            z-index: 1000;
             position: absolute;
             top: 0;
             left: 0;
@@ -86,22 +87,43 @@
             justify-content: space-between;
         }
 
-        .banner h2 {
-            width: var(--size);
-            text-align: center;
+            .banner h2 {
+                width: var(--size);
+                text-align: center;
+            }
+
+        .footer {
+            z-index: 1000;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #DDEEEE;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
         }
 
+            .footer h2 {
+                width: var(--size);
+                text-align: center;
+            }
     </style>
 </head>
 <body>
     <h3>Invisible padding</h3>
     <div class="container">
-        
+
         <section class="banner">
             <h2 style="--size: 20%;" title="These are the threats you need to mitigate.">Active Threats</h2>
             <h2 style="--size: 50%;" title="These are the available assets you can purchase.">Available Assets</h2>
             <h2 style="--size: 25%;" title="These are the assets you currently have.">Active Assets</h2>
-            <!--<div>Current Capital: ${{ .Capital }}</div>  Display the totalValue here -->
+        </section>
+        <section class="footer">
+            <h2 style="--size: 30%;" title="Your current money.">Current Capital: ${{ .Capital }}</h2>
+            <button class="test-button" onclick="handleButtonClick()" style="width: 5%; text-align: center;">Next Turn</button>
+            <button class="test-button" onclick="resetAction()" style="width: 5%; text-align: center;">Reset Actions</button>
+            <h2 style="--size: 30%;" title="Your current money.">Current Reputation: {{ .Reputation }}</h2>
         </section>
         <!-- Left Div -->
         <div class="left-div">
@@ -133,8 +155,6 @@
                 <input type="hidden" id="assetDetails" name="assetDetails">
             </form>
             <br>
-            <button class="test-button" onclick="handleButtonClick()">Next Turn</button>
-            <button class="test-button" onclick="resetAction()">Reset Actions</button>
         </div>
 
         <!-- Right Div -->

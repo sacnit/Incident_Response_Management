@@ -15,12 +15,13 @@
             height: auto;
             margin: 0;
         }
+
         .container {
-			display: flex;
-			flex-direction: column; /* Stack items vertically */
-			align-items: center; /* Center items horizontally */
-			min-height: 100vh; /* Set minimum height to 100% of the viewport */
-		}
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            min-height: 100vh; /* Set minimum height to 100% of the viewport */
+        }
 
         /* Style for the image selection container on the right */
         .selection-container {
@@ -33,13 +34,13 @@
 
         /* Style for each image container */
         .image-container {
-        	display: flex;
+            display: flex;
             text-align: center;
             align-items: center;
             margin: 10px;
             transition: opacity 0.3s ease-in-out; /* Add a transition for a smooth fade effect */
         }
-        
+
         .image-info {
             display: flex;
             flex-direction: column;
@@ -55,11 +56,11 @@
             transition: transform 0.3s ease-in-out;
         }
 
-        /* Style for the images on hover */
-        .image:hover {
-            transform: scale(1.2); /* Increase the scale factor for a larger hover effect */
-            box-shadow: 0 0 20px rgba(0, 0, 255, 0.5); /* Blue edge glow */
-        }
+            /* Style for the images on hover */
+            .image:hover {
+                transform: scale(1.2); /* Increase the scale factor for a larger hover effect */
+                box-shadow: 0 0 20px rgba(0, 0, 255, 0.5); /* Blue edge glow */
+            }
 
         /* Style for the checkboxes */
         .checkbox {
@@ -75,46 +76,87 @@
             color: #888;
         }
         /* Style for the title */
-		h1 {
-		    text-align: center; /* Center-align the text */
-		    font-size: 24px; /* Adjust font size as needed */
-		}
+        h1 {
+            text-align: center; /* Center-align the text */
+            font-size: 24px; /* Adjust font size as needed */
+        }
 
-		/* Style for the total value display */
-		#totalValueDisplay {
-		    font-size: 18px; /* Adjust font size as needed */
-		}
-		
-		input[type="submit"] {
+        /* Style for the total value display */
+        #totalValueDisplay {
+            font-size: 18px; /* Adjust font size as needed */
+        }
+
+        input[type="submit"] {
             width: 10%; /* Set the width to 50% of the container */
             margin: 20px auto; /* Add margin for centering and spacing */
             padding: 10px; /* Add padding for a larger button */
             font-size: 16px; /* Adjust font size as needed */
         }
-        
+
         form {
             text-align: center;
         }
+
+
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #DDEEEE;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .banner h2 {
+                width: var(--size);
+                text-align: center;
+            }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #DDEEEE;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .footer h2 {
+                width: var(--size);
+                text-align: center;
+            }
     </style>
 </head>
 <body>
     <div class="container" id="imageContainer">
+        <section class="banner">
+            <h2 style="--size: 100%;" title="These are the contracts currently avaiable.">Choose your assets!</h2>
+            <br />
+            <!--Capital Left: $<span id="totalValueDisplay">75000.00</span>-->
+        </section>
+        <section class="footer">
+            <h2 style="--size: 30%;" title="Your current money.">Capital Left: $<span id="totalValueDisplay">75000.00</span></h2>
+            <h2 style="--size: 30%;" title="Your current money.">Current Reputation: {{ .Reputation }}</h2>
+        </section>
         <h1>
-			<span class="title">Choose your assets!</span>
-			<br>
-			Capital Left: $<span id="totalValueDisplay">75000.00</span>
-		</h1>
+            <br>
+
+        </h1>
 
 
         <form id="imageForm" action="/submit" method="post">
             <div class="image-container">
                 {{ range $image, $cost := .ImageInfo }}
-                    <div class="image-info">
-                        <img class="image" src="Cards/{{ $image }}" alt="{{ $image }}">
-                        <div class="cost-label">Cost: ${{ $cost }}</div>
-                        <input type="checkbox" class="checkbox" name="selectedImages_{{ $image }}" value="{{ $image }}">
-                        <input type="hidden" name="cost_{{ $image }}" value="{{ $cost }}">
-                    </div>
+                <div class="image-info">
+                    <img class="image" src="Cards/{{ $image }}" alt="{{ $image }}">
+                    <div class="cost-label">Cost: ${{ $cost }}</div>
+                    <input type="checkbox" class="checkbox" name="selectedImages_{{ $image }}" value="{{ $image }}">
+                    <input type="hidden" name="cost_{{ $image }}" value="{{ $cost }}">
+                </div>
                 {{ end }}
             </div>
             <input type="hidden" id="totalValueInput" name="totalValue" value="75000">

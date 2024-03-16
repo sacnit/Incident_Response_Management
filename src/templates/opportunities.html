@@ -31,6 +31,7 @@
             text-align: center;
             align-items: center;
             justify-content: center;
+            overflow-y: auto;
         }
 
         /* Style for each selected image container */
@@ -71,32 +72,70 @@
             justify-content: center;
         }
 
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #DDEEEE;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .banner h2 {
+            width: var(--size);
+            text-align: center;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #DDEEEE;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .footer h2 {
+                width: var(--size);
+                text-align: center;
+            }
+
     </style>
 </head>
 <body>
     <div class="container">
-
+        <section class="banner">
+            <h2 style="--size: 100%;" title="These are the contracts currently avaiable.">Available Contracts</h2>
+        </section>
+        <section class="footer">
+            <h2 style="--size: 30%;" title="Your current money.">Current Capital: ${{ .Capital }}</h2>
+            <h2 style="--size: 30%;" title="Your current money.">Current Reputation: {{ .Reputation }}</h2>
+        </section>
         <!-- Middle Div with Test button and Random Image -->
         <div class="center-div">
-            <h1>Avaliable Contracts</h1>
-            <div>Current Capital: ${{ .Capital }}</div> 
-			<div>Current Reputation: {{ .Reputation }}</div>
+            <!----><h1>Hidden Text woooooooo its spoooooooky</h1>
+            <div>Current Capital: ${{ .Capital }}</div>
+            <div>Current Reputation: {{ .Reputation }}</div>
             <br>
             {{ range $index, $imageName := .Opportunities }}
-			<label class="opportunity-image-container" for="opportunity_{{ $index }}">
-				<img class="center-image opportunity-image" src="Cards/Opportunities/{{ $imageName }}" alt="{{ $imageName }}">
-				<!-- Set the cost to 0 for opportunity cards -->
-				<input type="radio" id="opportunity_{{ $index }}" name="opportunity" value="{{ $imageName }}" data-cost="0">
-			</label>
-			{{ end }}
-			<br>
-			<!-- Form to submit data -->
-			<form id="testForm" action="/assets" method="post">
-				<!-- Add a hidden input field for opportunity details -->
-				<input type="hidden" id="opportunityDetails" name="opportunityDetails">
-			</form>
+            <label class="opportunity-image-container" for="opportunity_{{ $index }}">
+                <img class="center-image opportunity-image" src="Cards/Opportunities/{{ $imageName }}" alt="{{ $imageName }}">
+                <!-- Set the cost to 0 for opportunity cards -->
+                <input type="radio" id="opportunity_{{ $index }}" name="opportunity" value="{{ $imageName }}" data-cost="0">
+            </label>
+            {{ end }}
             <br>
-			<button class="test-button" onclick="handleButtonClick()">Asset Management</button>
+            <!-- Form to submit data -->
+            <form id="testForm" action="/assets" method="post">
+                <!-- Add a hidden input field for opportunity details -->
+                <input type="hidden" id="opportunityDetails" name="opportunityDetails">
+            </form>
+            <br>
+            <button class="test-button" onclick="handleButtonClick()">Asset Management</button>
         </div>
 
 

@@ -11,7 +11,7 @@
         .container {
             display: flex;
             justify-content: space-between;
-            height: 100vh;
+            height: 90vh;
         }
 
         .left-div, .center-div, .right-div {
@@ -23,6 +23,7 @@
         /* Style for the left div */
         .left-div {
             width: 20%;
+            overflow-y: auto;
         }
 
         /* Style for the middle div */
@@ -34,6 +35,7 @@
         /* Style for the right div */
         .right-div {
             width: 25%;
+            overflow-y: auto;
         }
 
         /* Style for each selected image container */
@@ -79,25 +81,68 @@
 		    align-items: center;
 		}
 
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #DDEEEE;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .banner h2 {
+            width: var(--size);
+            text-align: center;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #DDEEEE;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .footer h2 {
+                width: var(--size);
+                text-align: center;
+            }
     </style>
 </head>
 <body>
     <div class="container">
+        <section class="banner">
+            <h2 style="--size: 20%;" title="These are your assets.">Assets</h2>
+            <h2 style="--size: 50%;" title="These are the current threats.">Threats Summary</h2>
+            <h2 style="--size: 25%;" title="These are the future threats.">Active Threats</h2>
+        </section>
+        <section class="footer">
+            <h2 style="--size: 30%;" title="Your current money.">Current Capital: ${{ .Capital }}</h2>
+            <button class="test-button" onclick="handleButtonClick()">Asset Management</button>
+            <h2 style="--size: 30%;" title="Your current money.">Current Reputation: {{ .Reputation }}</h2>
+        </section>
+        <br />
+        <br />
         <!-- Left Div -->
         <div class="left-div">
-		<h2>Assets Images</h2>
-		<div>Current Capital: ${{ .Capital }}</div>
-		<div>Current Reputation: {{ .Reputation }}</div>
-		{{ range $image, $cost := .AssetImages }}
-		<div class="selected-image-container">
-			<img class="selected-image" src="Cards/{{ $image }}" alt="{{ $image }}">
-		</div>
-		{{ end }}
-	</div>
+            <h2>Assets Images</h2>
+            <div>Current Capital: ${{ .Capital }}</div>
+            <div>Current Reputation: {{ .Reputation }}</div>
+            {{ range $image, $cost := .AssetImages }}
+            <div class="selected-image-container">
+                <img class="selected-image" src="Cards/{{ $image }}" alt="{{ $image }}">
+            </div>
+            {{ end }}
+        </div>
 
         <!-- Middle Div with Test button and Random Image -->
         <div class="center-div">
-            <h1>Threats Summary</h1>
+            <h2>Threats Summary</h2>
             <br>
             <div>Threats Not Fully Mitigated This Turn</div>
             <!-- Show the random image on the home page -->
@@ -108,27 +153,26 @@
             {{ end }}
             <br>
             {{ if .ManagedThreats}}
-            	<div>Threats Mitigated This Turn</div>
-            	<div class="selected-image-container">
-		        {{ range $image := .ManagedThreats }}
-		            <img class="smaller-center-image" src="Cards/{{ $image }}" alt="Threat To Manage">
-		        {{ end }}
-		        </div>
+            <div>Threats Mitigated This Turn</div>
+            <div class="selected-image-container">
+                {{ range $image := .ManagedThreats }}
+                <img class="smaller-center-image" src="Cards/{{ $image }}" alt="Threat To Manage">
+                {{ end }}
+            </div>
             {{ end }}
             <br>
-            <button class="test-button" onclick="handleButtonClick()">Asset Management</button>
         </div>
 
         <!-- Right Div -->
         <div class="right-div">
-			<h2>Active Threats</h2>
-			<div>These Will Impact Your Next Turn</div>
-			{{ range $image, $cost := .ActiveThreats }}
-			<div class="selected-image-container">
-				<img class="selected-image" src="Cards/{{ $image }}" alt="{{ $image }}">
-			</div>
-			{{ end }}
-		</div>
+            <h2>Active Threats</h2>
+            <div>These Will Impact Your Next Turn</div>
+            {{ range $image, $cost := .ActiveThreats }}
+            <div class="selected-image-container">
+                <img class="selected-image" src="Cards/{{ $image }}" alt="{{ $image }}">
+            </div>
+            {{ end }}
+        </div>
     </div>
     
     <script>

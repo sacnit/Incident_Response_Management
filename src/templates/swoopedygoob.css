@@ -1,0 +1,90 @@
+﻿body {
+    /* Styles for the container and divs */
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    height: 88vh;
+}
+.left-div, .center-div, .right-div {
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+}
+/* Style for the left div */
+.left-div {
+    width: 20%;
+    overflow-y: auto;
+}
+/* Style for the middle div */
+.center-div {
+    width: 50%;
+    overflow-y: auto;
+}
+/* Style for the right div */
+.right-div {
+    width: 25%;
+    overflow-y: auto;
+}
+/* Style for each selected image container */
+.selected-image-container {
+    text-align: center;
+    margin: 10px;
+}
+/* Style for the selected images */
+.selected-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+/* Style for the selected images */
+.center-image {
+    width: 60%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.test-button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.opportunity-image-container {
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.banner {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #DDEEEE;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.banner h2 {
+    width: var(--size);
+    text-align: center;
+}
+.footer {
+    z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #DDEEEE;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.footer h2 {
+    width: var(--size);
+    text-align: center;
+}
