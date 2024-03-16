@@ -23,6 +23,7 @@
         /* Style for the left div */
         .left-div {
             width: 20%;
+            overflow-y: auto;
         }
 
         /* Style for the middle div */
@@ -34,6 +35,7 @@
         /* Style for the right div */
         .right-div {
             width: 25%;
+            overflow-y: auto;
         }
 
         /* Style for each selected image container */
@@ -62,6 +64,7 @@
             cursor: pointer;
         }
 
+        /* Trying to set the radio button to be the image of the card*/
         .opportunity-image-container {
 		    position: relative;
 		    display: inline-block;
@@ -71,7 +74,28 @@
 		    display: flex;
 		    flex-direction: column;
 		    align-items: center;
+            background-image: var(--image);
+            background-size: cover;
 		}
+
+        dobutton {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            min-height: 100vh;
+        }
+
+        input[type="radio"] {
+            /*display: none;*/
+        }
+        /* Trying to add red border to button when selected*/
+        input[type="radio"]:checked + .opportunity-image-container {
+            border: 2px solid #ff0000;
+        }
 
     </style>
 </head>
@@ -93,11 +117,11 @@
             <h1>Avaliable Assets</h1>
             <br>
             {{ range $image, $cost := .ImageInfo }}
-			<label class="opportunity-image-container" for="{{ $image }}">
-				<img class="center-image opportunity-image" src="Cards/{{ $image }}" alt="{{ $image }}">
+			<label class="opportunity-image-container" for="{{ $image }}" style="--image: Cards/{{ $image }};" alt="{{ $image }}">
+                <input type="radio" id="image" name="asset" value="{{ $image }};{{ $cost }}" data-cost="{{ $cost }}">
 				<div class="cost-label">Cost: ${{ $cost }}</div>
 				<!-- Set the cost to 0 for opportunity cards -->
-				<input type="radio" id="image" name="asset" value="{{ $image }};{{ $cost }}" data-cost="{{ $cost }}">
+                <!-- Trying to make it so the radio buttons are the card image-->
 			</label>
 			{{ end }}
 			<br>
@@ -107,7 +131,7 @@
 				<input type="hidden" id="assetDetails" name="assetDetails">
 			</form>
             <br>
-            <button class="test-button" onclick="handleButtonClick()">Next Turn</button>
+            <dobutton><button class="test-button" onclick="handleButtonClick()">Next Turn</button></dobutton>
         </div>
 
         <!-- Right Div -->
