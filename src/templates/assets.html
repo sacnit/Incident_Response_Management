@@ -11,7 +11,7 @@
         .container {
             display: flex;
             justify-content: space-between;
-            height: 100vh;
+            height: 93vh;
         }
 
         .left-div, .center-div, .right-div {
@@ -50,7 +50,7 @@
             height: auto;
             margin-bottom: 10px;
         }
-        
+
         /* Style for the selected images */
         .center-image {
             width: 60%;
@@ -64,120 +64,137 @@
             cursor: pointer;
         }
 
-        /* Trying to set the radio button to be the image of the card*/
         .opportunity-image-container {
-		    position: relative;
-		    display: inline-block;
-		    margin: 5px;
-		    text-align: center;
-		    align-items: center;
-		    display: flex;
-		    flex-direction: column;
-		    align-items: center;
-            background-image: var(--image);
-            background-size: cover;
-		}
-
-        dobutton {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
+            position: relative;
+            display: inline-block;
+            margin: 5px;
+            text-align: center;
+            align-items: center;
             display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
         }
 
-        input[type="radio"] {
-            /*display: none;*/
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #DDEEEE;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
         }
-        /* Trying to add red border to button when selected*/
-        input[type="radio"]:checked + .opportunity-image-container {
-            border: 2px solid #ff0000;
+
+        .banner h2 {
+            width: var(--size);
+            text-align: center;
         }
 
     </style>
 </head>
 <body>
+    <h3>Invisible padding</h3>
     <div class="container">
+        
+        <section class="banner">
+            <h2 style="--size: 20%;" title="These are the threats you need to mitigate.">Active Threats</h2>
+            <h2 style="--size: 50%;" title="These are the available assets you can purchase.">Available Assets</h2>
+            <h2 style="--size: 25%;" title="These are the assets you currently have.">Active Assets</h2>
+            <!--<div>Current Capital: ${{ .Capital }}</div>  Display the totalValue here -->
+        </section>
         <!-- Left Div -->
         <div class="left-div">
-		<h2>Active Threats</h2>
-		<div>Current Capital: ${{ .Capital }}</div> <!-- Display the totalValue here -->
-		{{ range $image, $cost := .ActiveThreats }}
-		<div class="selected-image-container">
-		    <img class="selected-image" src="Cards/{{ $image }}" alt="{{ $image }}">
-		</div>
-		{{ end }}
-	</div>
+            <!--<h2>Active Threats</h2>-->
+            <!--<div>Current Capital: ${{ .Capital }}</div> Display the totalValue here -->
+            {{ range $image, $cost := .ActiveThreats }}
+            <div class="selected-image-container">
+                <img class="selected-image" src="Cards/{{ $image }}" alt="{{ $image }}">
+            </div>
+            {{ end }}
+        </div>
 
         <!-- Middle Div with Test button and Random Image -->
         <div class="center-div">
-            <h1>Avaliable Assets</h1>
+            <!--<h1>Avaliable Assets</h1>-->
             <br>
             {{ range $image, $cost := .ImageInfo }}
-			<label class="opportunity-image-container" for="{{ $image }}" style="--image: Cards/{{ $image }};" alt="{{ $image }}">
+            <label class="opportunity-image-container" for="{{ $image }}">
+                <img class="center-image opportunity-image" src="Cards/{{ $image }}" alt="{{ $image }}">
+                <div class="cost-label">Cost: ${{ $cost }}</div>
+                <!-- Set the cost to 0 for opportunity cards -->
                 <input type="radio" id="image" name="asset" value="{{ $image }};{{ $cost }}" data-cost="{{ $cost }}">
-				<div class="cost-label">Cost: ${{ $cost }}</div>
-				<!-- Set the cost to 0 for opportunity cards -->
-                <!-- Trying to make it so the radio buttons are the card image-->
-			</label>
-			{{ end }}
-			<br>
-			<!-- Form to submit data -->
-			<form id="assetForm" action="/turn" method="post">
-				<input type="hidden" id="assetToSell" name="assetToSell">
-				<input type="hidden" id="assetDetails" name="assetDetails">
-			</form>
+            </label>
+            {{ end }}
             <br>
-            <dobutton><button class="test-button" onclick="handleButtonClick()">Next Turn</button></dobutton>
+            <!-- Form to submit data -->
+            <form id="assetForm" action="/turn" method="post">
+                <input type="hidden" id="assetToSell" name="assetToSell">
+                <input type="hidden" id="assetDetails" name="assetDetails">
+            </form>
+            <br>
+            <button class="test-button" onclick="handleButtonClick()">Next Turn</button>
+            <button class="test-button" onclick="resetAction()">Reset Actions</button>
         </div>
 
         <!-- Right Div -->
         <div class="right-div">
-			<h2>Active Asset</h2>
-			<div> These Can Be Sold to Regain Capital </div>
-			{{ range $image, $cost := .AssetImages }}
-			<div class="selected-image-container">
-				<img class="selected-image" src="Cards/{{ $image }}" alt="{{ $image }}">
-				<div>Cost: ${{ $cost }}</div>
-				<input type="radio" id="image" id="assetToSell" name="assetToSell" value="{{ $image }};{{ $cost }}" data-cost="{{ $cost }}">
-			</div>
-			{{ end }}
-		</div>
+            <!--<h2>Active Asset</h2>-->
+            <!--<div> These Can Be Sold to Regain Capital </div>-->
+            {{ range $image, $cost := .AssetImages }}
+            <div class="selected-image-container">
+                <img class="selected-image" src="Cards/{{ $image }}" alt="{{ $image }}">
+                <div>Cost: ${{ $cost }}</div>
+                <input type="radio" id="image" id="assetToSell" name="assetToSell" value="{{ $image }};{{ $cost }}" data-cost="{{ $cost }}">
+            </div>
+            {{ end }}
+        </div>
     </div>
-    
+
     <script>
-			function handleButtonClick() {
-				console.log("Test");
-				// Set a cookie indicating the Test button was clicked
-				document.cookie = "testClicked=true; path=/";
+        function handleButtonClick() {
+            console.log("Test");
+            // Set a cookie indicating the Test button was clicked
+            document.cookie = "testClicked=true; path=/";
 
-				// Gather selected opportunity details
-				var selectedAsset = document.querySelector('input[name="asset"]:checked');
-				var assetDetails = selectedAsset ? selectedAsset.value : null;
+            // Gather selected opportunity details
+            var selectedAsset = document.querySelector('input[name="asset"]:checked');
+            var assetDetails = selectedAsset ? selectedAsset.value : null;
 
-				// Gather selected asset to sell details
-				var selectedAssetToSell = document.querySelector('input[name="assetToSell"]:checked');
-				var assetToSellDetails = selectedAssetToSell ? selectedAssetToSell.value : null;
+            // Gather selected asset to sell details
+            var selectedAssetToSell = document.querySelector('input[name="assetToSell"]:checked');
+            var assetToSellDetails = selectedAssetToSell ? selectedAssetToSell.value : null;
 
-				// Update the hidden input fields with opportunity and asset to sell details
-				document.getElementById("assetDetails").value = assetDetails;
-				document.getElementById("assetToSell").value = assetToSellDetails;
+            // Update the hidden input fields with opportunity and asset to sell details
+            document.getElementById("assetDetails").value = assetDetails;
+            document.getElementById("assetToSell").value = assetToSellDetails;
 
-				// Print the gathered details (for debugging)
-				console.log("Asset Details:", assetDetails);
-				console.log("Asset to Sell Details:", assetToSellDetails);
+            // Print the gathered details (for debugging)
+            console.log("Asset Details:", assetDetails);
+            console.log("Asset to Sell Details:", assetToSellDetails);
 
-				// Prevent the default form submission
-				event.preventDefault();
+            // Prevent the default form submission
+            event.preventDefault();
 
-				// Submit the form programmatically
-				document.getElementById("assetForm").submit();
-			}
-        
+            // Submit the form programmatically
+            document.getElementById("assetForm").submit();
+        }
+
+        function resetAction() {
+            console.log("Test");
+
+            //From https://stackoverflow.com/questions/2554116/how-to-clear-radio-button-in-javascript
+            var radioButtons = document.getElementsByName("asset");
+            for (var i = 0; i < radioButtons.length; i++) {
+                radioButtons[i].checked = false;
+            }
+
+            var radioButtons = document.getElementsByName("assetToSell");
+            for (var i = 0; i < radioButtons.length; i++) {
+                radioButtons[i].checked = false;
+            }
+        }
+
     </script>
 </body>
 </html>
-
