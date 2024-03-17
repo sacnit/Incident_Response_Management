@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Incident Response Management</title>
     <style>
+        body {
+            background-color: #5C6784;
+        }
         /* Styles for the container and divs */
         .container {
             display: flex;
@@ -79,7 +82,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            background-color: #DDEEEE;
+            background-color: #1D263B;
             width: 100%;
             height: auto;
             display: flex;
@@ -95,7 +98,7 @@
             position: fixed;
             bottom: 0;
             left: 0;
-            background-color: #DDEEEE;
+            background-color: #1D263B;
             width: 100%;
             height: auto;
             display: flex;
@@ -106,6 +109,10 @@
                 width: var(--size);
                 text-align: center;
             }
+
+        button {
+            background: #87A8B8;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +124,15 @@
         </section>
         <section class="footer">
             <h2 style="--size: 30%;" title="Your current money.">Current Capital: ${{ .Capital }}</h2>
+            {{ if .TestClicked }}
+            {{ if eq .ThreatMitigated true }}
+            <button class="opportunities-button" onclick="handleOpportunitiesButtonClick()">Opportunities</button>
+            {{ else }}
+            <button class="test-button" onclick="handleManageButtonClick()">Manage Threats</button>
+            {{ end }}
+            {{ else }}
+            <button class="test-button" onclick="handleTestButtonClick()">Begin!</button>
+            {{ end }}
             <h2 style="--size: 30%;" title="Your current money.">Current Reputation: {{ .Reputation }}</h2>
         </section>
         <!-- Left Div -->
@@ -173,15 +189,6 @@
                 <input type="hidden" id="opportunityDetails" name="opportunityDetails">
             </form>
             <br>
-            {{ if .TestClicked }}
-            {{ if eq .ThreatMitigated true }}
-            <button class="opportunities-button" onclick="handleOpportunitiesButtonClick()">Opportunities</button>
-            {{ else }}
-            <button class="test-button" onclick="handleManageButtonClick()">Manage Threats</button>
-            {{ end }}
-            {{ else }}
-            <button class="test-button" onclick="handleTestButtonClick()">Begin!</button>
-            {{ end }}
         </div>
 
         <!-- Right Div -->
@@ -238,4 +245,3 @@
     </script>
 </body>
 </html>
-

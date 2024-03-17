@@ -14,6 +14,7 @@
             align-items: center;
             height: auto;
             margin: 0;
+            background-color: #5C6784;
         }
 
         .container {
@@ -91,6 +92,15 @@
             margin: 20px auto; /* Add margin for centering and spacing */
             padding: 10px; /* Add padding for a larger button */
             font-size: 16px; /* Adjust font size as needed */
+            background: #87A8B8;
+            position: fixed;
+            bottom: 0;
+            left: 90vh;
+            background-color: #1D263B;
+            width: auto;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
         }
 
         form {
@@ -102,7 +112,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            background-color: #DDEEEE;
+            background-color: #1D263B;
             width: 100%;
             height: auto;
             display: flex;
@@ -118,7 +128,7 @@
             position: fixed;
             bottom: 0;
             left: 0;
-            background-color: #DDEEEE;
+            background-color: #1D263B;
             width: 100%;
             height: auto;
             display: flex;
@@ -129,6 +139,9 @@
                 width: var(--size);
                 text-align: center;
             }
+        button {
+            background: #87A8B8;
+        }
     </style>
 </head>
 <body>
@@ -160,7 +173,7 @@
                 {{ end }}
             </div>
             <input type="hidden" id="totalValueInput" name="totalValue" value="75000">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Begin!">
         </form>
     </div>
 

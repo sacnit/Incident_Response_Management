@@ -14,6 +14,7 @@
             justify-content: center;
             height: auto;
             margin: 0;
+            background-color: #5C6784;
         }
 
         .container {
@@ -76,7 +77,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            background-color: #DDEEEE;
+            background-color: #1D263B;
             width: 100%;
             height: auto;
             display: flex;
@@ -92,7 +93,7 @@
             position: fixed;
             bottom: 0;
             left: 0;
-            background-color: #DDEEEE;
+            background-color: #1D263B;
             width: 100%;
             height: auto;
             display: flex;
@@ -104,6 +105,9 @@
                 text-align: center;
             }
 
+        button {
+            background: #87A8B8;
+        }
     </style>
 </head>
 <body>
@@ -113,6 +117,7 @@
         </section>
         <section class="footer">
             <h2 style="--size: 30%;" title="Your current money.">Current Capital: ${{ .Capital }}</h2>
+            <button class="test-button" onclick="handleButtonClick()">Asset Management</button>
             <h2 style="--size: 30%;" title="Your current money.">Current Reputation: {{ .Reputation }}</h2>
         </section>
         <!-- Middle Div with Test button and Random Image -->
@@ -135,7 +140,6 @@
                 <input type="hidden" id="opportunityDetails" name="opportunityDetails">
             </form>
             <br>
-            <button class="test-button" onclick="handleButtonClick()">Asset Management</button>
         </div>
 
 
